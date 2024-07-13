@@ -1,0 +1,31 @@
+# graph/schema.graphqls
+type Mutation {
+  signup(input: SignupInput!): User!
+  login(input: LoginInput!): AuthPayload!
+}
+
+input SignupInput {
+  fullName: String!
+  username: String!
+  email: String!
+  age: Int!
+  password: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  fullName: String!
+  username: String!
+  email: String!
+  age: Int!
+}

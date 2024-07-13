@@ -3,7 +3,7 @@ package graph
 import (
 	"context"
 	"errors"
-	"fmt"
+	"strconv"
 	"time"
 
 	"go-graphql-backend/db"
@@ -56,11 +56,12 @@ func (r *mutationResolver) Signup(ctx context.Context, input model.SignupInput) 
 
 	// Convert user.ID to string
 	// Log user.ID to verify type and value
-	fmt.Printf("User created with ID: %s\n", user.ID)
+	//fmt.Printf("User created with ID: %s\n", userID)
 
 	// Return the GraphQL model.User object
+	userId, _ := strconv.Atoi(user.ID)
 	return &model.User{
-		ID:       string(user.ID),
+		ID:       userId,
 		FullName: user.FullName,
 		Username: user.Username,
 		Email:    user.Email,
@@ -83,11 +84,11 @@ func (r *mutationResolver) Login(ctx context.Context, input model.LoginInput) (*
 	if err != nil {
 		return nil, err
 	}
-
+	userId, _ := strconv.Atoi(user.ID)
 	return &model.AuthPayload{
 		Token: token,
 		User: &model.User{
-			ID:       string(user.ID),
+			ID:       userId,
 			FullName: user.FullName,
 			Username: user.Username,
 			Email:    user.Email,
